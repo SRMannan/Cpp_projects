@@ -1,0 +1,475 @@
+#include<fstream.h>
+#include<conio.h>
+#include<string.h>
+#include<stdio.h>
+#include<dos.h>
+#include<graphics.h>
+#include<stdlib.h>
+class gst{
+	char product_name[30];
+	int product_code;
+	int slab_rate;
+	char product_category[20];
+
+	  public:
+	  float price,qty,gst;
+
+
+
+
+	void product_info()
+	{
+
+		cout<<"\n";
+		cout<<"\nenter product code:\t";
+		cin>>product_code;
+		cout<<"\nenter product name:\t";
+		cin>>product_name;
+		cout<<"\nenter slab rate(0 / 5 / 12 / 18 / 28):\t";
+		cin>>slab_rate;
+		cout<<"\nenter price:\t";
+		cin>>price;
+
+			if(slab_rate==0)
+			{
+			      strcpy(product_category,"NO GST");
+			}
+			if(slab_rate==5)
+			{
+			      strcpy(product_category,"5% GST");
+			}
+			if(slab_rate==12)
+			{
+			      strcpy(product_category,"12% GST");
+			}
+			if(slab_rate==18)
+			{
+			      strcpy(product_category,"18% GST");
+			}
+			if(slab_rate==28)
+			{
+			      strcpy(product_category,"28% GST");
+			}
+		   }
+
+	void display_gst()
+	{
+		cout<<"\n";
+		cout<<product_code<<"\t\t\t"<<product_name<<"\t\t\t"<<slab_rate<<" %\t\t\t"<<price;
+	 }
+
+
+	 void display2_gst()
+	{
+		cout<<"\n";
+		cout<<"\t\t\t\t"<<product_name ;
+	 }
+
+      float calc_gst()
+	 {
+	      float ag;
+			if(slab_rate==0)
+			ag=0;
+			if(slab_rate==5)
+			ag=0.05*price;
+			if(slab_rate==12)
+			ag=0.12*price;
+			if(slab_rate==18)
+			ag=0.18*price;
+			if(slab_rate==28)
+			ag=0.28*price;
+	      return ag;
+	 }
+
+
+	  int get_code()
+	  {
+		return product_code;
+	   }
+	   float get_price()
+	   {
+	   return price;
+	   }
+	   char* get_name()
+	   {
+	   return product_name;
+	   }
+
+
+};
+fstream file;
+gst ob;
+
+	       /*	void display_all()
+		{
+		      file.open("minimart.dat",ios::in|ios::binary);
+
+					cout<<"PRODUCT CODE\t\tPRODUCT NAME\t\tCATEGORY\t\tPRICE";
+
+						while(file.read((char*)&ob,sizeof(gst)))
+						{
+
+						  ob.display_gst();
+						}
+						file.close();
+		      } */
+
+void main()
+{
+	clrscr();
+
+	char ch;
+	int choice,choice_2,cd,flag,loc,pref;
+	float ap,fcost,icost;
+	fstream file1,file3;
+	delay(200);
+	cout<<"Welcome";
+	delay(200);
+	cout<<" To";
+	delay(200);
+	cout<<" Sharry's";
+	delay(200);
+	cout<<" Mega";
+	delay(200);
+	cout<<" Mart";
+	delay(100);
+ /*	clrscr();
+		int we=33,qe=0;
+			int gd=DETECT,gm,i,y,x,j,k,l,m,n,A[10];
+
+	initgraph(&gd,&gm,"C:\\TC\\BGI");
+	x=getmaxx();
+	y=getmaxy();
+
+
+			for(int rt=0;rt<11;rt++)
+			{
+					gotoxy(33,3);
+					cout<<"FETCHING DATA";
+
+				gotoxy(we,4);
+				cout<<" ";
+				we++;
+				gotoxy(33,5);
+				cout<<qe <<" % done";
+
+					setcolor(i);
+					for(m=0;m<5;m++)
+					{
+						j=random(y/4);
+						circle(x/2,y/2,j);
+						delay(5);
+					}
+
+				qe+=10;
+				delay(50); i++;
+			}
+			closegraph();8*/
+
+			delay(500);
+
+     do{
+	clrscr();
+	       /*	for(int i=0;i<30;i++)
+		{       int j=0;
+			gotoxy(j,i);
+			cout<<"|";
+		 }
+		 for(int a=0;a<30;a++)
+		 {
+			int b=;
+			gotoxy(b,a);
+			cout<<"|";
+		  }*/
+      /*	cout<<"CUSTOMERS 	:enter 1";
+	cout<<"STAFF MEMBERS 	: enter 2";
+	cin>>pref;
+	switch(pref)
+	{ */
+		// frome here--------------------------------------------
+	cout<<"\n\n MAIN MENU";
+	cout<<"\n ENTER 1 for DATA ENTRY";
+	cout<<"\n ENTER 2 for REPORTS AND QUERIES";
+	cout<<"\n ENTER 3 TO QUIT";
+	cout<<"\n enter choice:\t";
+	cin>>choice;
+	clrscr();
+
+
+
+		switch(choice)
+		{
+			case 1:
+			cout<<"\nenter 1: adding products";
+			cout<<"\nenter 2: display all products";
+			cout<<"\nenter 3: display a particular product";
+			cout<<"\nenter 4: fresh record entry";
+			cout<<"\nenter 5: delete a product";
+			cout<<"\nenter 6: modify product details of a particular product";
+			cout<<"\nenter 7: get back to main menu";
+			cout<<"\n\nenter choice:\t";
+			cin>>choice_2;
+				switch(choice_2)
+				{
+							case 1:
+							file.open("minimart.dat",ios::app|ios::binary);
+								do{
+									ob.product_info();
+									file.write((char*)&ob,sizeof(gst));
+									cout<<"\nWanna enter more(Y/N):\t";
+									cin>>ch;
+								   }
+								   while(ch=='y'||ch=='Y');
+								   file.close();
+								   cout<<"\npress any key";
+							getch();
+					break;
+					case 2:
+
+					clrscr();
+					file.open("minimart.dat",ios::in|ios::binary);
+
+					cout<<"PRODUCT CODE\t\tPRODUCT NAME\t\tCATEGORY\t\tPRICE";
+
+						while(file.read((char*)&ob,sizeof(gst)))
+						{
+
+						  ob.display_gst();
+						}
+						file.close();
+						getch();
+					break;//case 2 ends here
+					//case 3
+					case 3:
+						clrscr();
+						cout<<"ENTER PRODUCT CODE:\t";
+						cin>>cd;
+							file.open("minimart.dat",ios::in|ios::binary);
+
+							cout<<"PRODUCT CODE\t\tPRODUCT NAME\t\tPRODUCT CATEGORY";
+
+								while(file.read((char*)&ob,sizeof(gst)))
+									{
+										 if(ob.get_code()==cd)
+										  ob.display_gst();
+									}
+							file.close();
+						getch();
+					break;  //case 3 ends here
+					case 4:
+
+					       file.open ("minimart.dat",ios::out|ios::binary);
+
+
+
+
+							do{
+									ob.product_info();
+									file.write((char*)&ob,sizeof(gst));
+									cout<<"\nWanna enter more(Y/N):\t";
+									cin>>ch;
+								   }
+								   while(ch=='y'||ch=='Y');
+								   file.close();
+							       getch();
+							       break;
+					case 5:
+					file.open("minimart.dat",ios::in|ios::binary);
+					file1.open("mini.dat",ios::out|ios::binary);
+					flag=0;
+						clrscr();
+						cout<<"ENTER PRODUCT CODE OF DESIRED PRODUCT TO BE DELETED:\t";
+						cin>>cd;
+
+
+					while(file.read((char*)&ob,sizeof(gst)))
+					{
+						if(ob.get_code()!=cd)
+						{
+							file1.write((char*)&ob,sizeof(ob));
+
+						}
+						else
+						{
+						 flag=1;
+						}
+					}
+					file1.close();
+					file.close();
+						if(flag==1)
+						{
+						    remove("minimart.dat");
+						    rename("mini.dat","minimart.dat");
+						    cout<<"\nRECORD HAS BEEN DELETED......";
+						    getch();
+						}
+						else
+						{
+							remove("mini.dat");
+							cout<<"\nRECORD NOT FOUND......";
+							getch();
+						}
+						break;
+				case 6:
+				clrscr();
+					cout<<"ENTER PRODUCT CODE OF DESIRED PRODUCT TO BE MODIFIED:\t";
+					cin>>cd;
+
+					file.open("minimart.dat",ios::in|ios::out|ios::ate|ios::binary);
+					file.seekg(0);
+						while(file.read((char*)&ob,sizeof(ob)))
+						{
+							if(ob.get_code()==cd)
+							{
+								loc=file.tellg();
+								cout<<"\nrecord found";
+								cout<<"\npress any key to continue....";
+								getch();
+								flag=1;
+								break;
+
+							 }
+
+						 }
+						 if(flag==1)
+						 {
+							clrscr();
+							cout<<"\nOLD RECORD";
+							ob.display_gst();
+							cout<<"\n\nENTER NEW RECORD\n";
+							ob.product_info();
+							file.seekg(loc-sizeof(ob));
+							file.write((char*)&ob,sizeof(ob));
+							cout<<"\n\nNEW RECORD";
+							ob.display_gst();
+							getch();
+						 }
+						 else
+						 {
+						  cout<<"\nRECORD NOT FOUND";
+
+						 }
+						 file.close();
+						 break;
+
+						 case 7:
+						 break;
+
+						 default:
+						 cout<<"irrelevant choice";
+						 break;
+
+				 }    //case 1 (main switch) ends
+				 break;
+
+	case 2:
+	clrscr();
+	cout<<"ENTER 1: for placing orders in the mega mart and bill display";
+
+	cout<<"\nENTER 3: to go to main menu";
+	cout<<"\nenter choice:\t";
+       cin>>choice_2;
+
+
+		switch(choice_2)
+		{
+			case 1:
+			int order_arr[50],quan[50],c=0,flag;
+			float amt,tamt,total=0;
+			char ch='y';
+			cout<<"\n\n\n\n\n";
+			cout<<"===============================================================================";
+			cout<<"\n                          PLACE YOUR ORDER";
+			cout<<"\n\n===============================================================================";
+			do
+			{
+			cout<<"\n\n ENTER THE PRODUCT NUMBER OF THE PRODUCT : ";
+			cin>>order_arr[c];
+					file.open("minimart.dat",ios::in|ios::out|ios::binary);
+					 while(file.read((char*)&ob,sizeof(ob)))
+					 {
+			if(order_arr[c]==ob.get_code())
+
+			{
+			cout<<"\n record found";
+		flag=1;
+			cout<<"\n press any key to continue";
+			getch();
+
+		       break;
+		       }
+		       else
+		       flag=0;
+		       }
+		       if (flag==1)
+		       {
+		       clrscr();
+		       getch();
+			ob.display_gst() ;
+			cout<<"\n ENTER QUANTITY IN NUMBER : ";
+			cin>>quan[c];
+			c++;
+
+			}
+
+			else if( flag==0)
+			{
+			cout<<"\n record not found";
+			 }
+			cout<<"\n DO YOU WANT TO ORDER ANOTHER PRODUCT ? (Y/N)    : ";
+
+		      cin>>ch;
+		      file.close();
+			   }
+			  while(ch=='y'||ch=='Y');
+			  cout<<"\n\n                                THANK YOU FOR PLACING ORDER";
+			  getch();
+			  clrscr();
+
+			  int a;
+			  cout<<"\n  ********************************INVOICE********************************\n\n\n\n\n ";
+			  cout<<"                      =====================   ";
+			  cout<<"\n                        SHARRY'S  MEGA  MART ";
+			  cout<<"\n                       ======================";
+			  cout<<"\n \n\n\n";
+			  cout<<"\n PRODUCT CODE\tPRODUCT NAME \t\OUANTITY\t\ PRICE\t\ AMOUNT \t\TOTAL   ";
+			  for(int x=0;x<c;x++)
+			  {
+
+				file.open("minimart.dat",ios::in|ios::out|ios::binary);
+			       while(file.read((char*)&ob,sizeof(ob)))
+
+			       {
+			       if(ob.get_code()==order_arr[x])
+			       {
+				amt=ob.get_price()*quan[x];
+				ap= ob.calc_gst();
+				tamt= amt+ap;
+
+
+				  cout<<"\n"<<order_arr[x]<<"\t\t"<<ob.get_name()<<"\t\t  "<<quan[x]<<"\t         "<< ob.get_price()<<"   "<< amt <<"\t    "<<tamt   ;
+				  total+=tamt;
+				  }
+
+				  }
+				  file.close();
+				  }cout<<"\n \n\n\n                         TOTAL BILL COST ->  "<<total;
+				  getch();
+				  break;
+
+
+
+
+
+
+
+
+	       }
+
+
+			   }  // main switch ends here
+			}// do loop ends here
+
+			while(choice!=3);
+
+}
